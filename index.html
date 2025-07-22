@@ -109,11 +109,6 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
         }
 
-        h3 {
-            font-size: 2rem; /* Tamanho para subtítulos e itens de FAQ */
-            font-weight: 600;
-        }
-
         .section-description {
             text-align: center;
             font-size: 1.15rem; /* Tamanho de fonte profissional */
@@ -427,17 +422,26 @@
             max-width: 450px; /* Tamanho da imagem ajustado */
             width: 100%;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Para alinhar o emoji e o texto */
         }
-        .about-course-section .image-content img {
-            max-width: 100%;
-            border-radius: var(--border-radius-base);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), var(--box-shadow-purple-glow);
-            border: 3px solid var(--color-purple-primary);
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        .about-course-section .image-content .emoji-icon {
+            font-size: 8rem; /* Tamanho grande para o emoji */
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(187, 134, 252, 0.7); /* Brilho no emoji */
+            transition: transform 0.3s ease;
         }
-        .about-course-section .image-content img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(187, 134, 252, 1);
+        .about-course-section .image-content .emoji-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .about-course-section .image-content p {
+            font-size: 1.2rem;
+            color: var(--color-purple-primary);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
         }
 
 
@@ -943,8 +947,11 @@
             .about-course-section .image-content {
                 max-width: 380px; /* Ajuste para mobile */
             }
-            .about-course-section .text-content p {
-                font-size: 1rem;
+            .about-course-section .image-content .emoji-icon {
+                font-size: 6rem; /* Ajuste do emoji para telas menores */
+            }
+            .about-course-section .image-content p {
+                font-size: 1.1rem;
             }
 
             .social-icons a {
@@ -1053,6 +1060,12 @@
 
             .about-course-section .text-content h2 {
                 font-size: 1.8rem;
+            }
+            .about-course-section .image-content .emoji-icon {
+                font-size: 5rem; /* Ajuste ainda menor para telas muito pequenas */
+            }
+            .about-course-section .image-content p {
+                font-size: 1rem;
             }
 
             .countdown-section h3 {
@@ -1174,7 +1187,8 @@
                         <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Comece a Produzir Agora!</a>
                     </div>
                     <div class="image-content">
-                        <img src="https://images.unsplash.com/photo-1596280455088-7505374b711e?fit=crop&w=450&h=675&q=80" alt="Produção de Beats no Celular">
+                        <span class="emoji-icon">🎵</span>
+                        <p>Produção de Beats no Celular</p>
                     </div>
                 </div>
             </div>
@@ -1346,11 +1360,13 @@
         function startCountdown() {
             // Define uma data de término para o contador, 7 dias a partir da data e hora atual.
             // Em um ambiente de produção real, esta data viria de um backend ou seria fixa.
-            const countdownDate = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+            // Data atual: Tuesday, July 22, 2025 at 11:46:29 AM -03
+            const now = new Date('2025-07-22T11:46:29'); // Definindo a data atual como a do prompt
+            const countdownDate = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000)); // Adiciona 7 dias
 
             const x = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
+                const currentTime = new Date(); // Usa a data e hora do usuário para contagem regressiva
+                const distance = countdownDate - currentTime.getTime();
 
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
