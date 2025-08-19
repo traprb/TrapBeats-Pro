@@ -981,7 +981,7 @@
             <div class="container">
                 <div class="hero-content">
                     <h1>Crie Beats Profissionais: Seu Celular é o Novo Estúdio!</h1>
-                    <p class="subtitle">Aprenda a produzir, registrar e distribuir suas músicas com o mestre TRAP R B. Usando apenas seu celular e o essencial FL Studio Mobile, transforme seu talento em beats profissionais por um preço promocional imperdível!</p>
+                    <p class="subtitle">Aprenda a produzir, registrar e distribuir suas músicas com o mestre TRAP R B. Usando apenas seu celular e o essencial FL Studio Mobile, transforme seu talento em beats profissionais por um preço promocional imperdível.</p>
                     <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Quero Criar Meus Beats!</a>
                     <a href="#sobre-o-curso" class="btn btn-secondary btn-large">Saiba Mais Sobre o Curso</a>
                 </div>
@@ -1185,40 +1185,26 @@
 
         // Script para o Countdown Timer (Oferta)
         function startCountdown() {
-            let countdownDate = new Date(); // Start with the current date
-            const oneWeek = 7 * 24 * 60 * 60 * 1000;
-
-            // Check if there's a stored end time in local storage
-            const storedEndTime = localStorage.getItem('countdownEndTime');
-            if (storedEndTime) {
-                countdownDate = new Date(parseInt(storedEndTime, 10));
-                // If the stored time is in the past, reset it
-                if (countdownDate.getTime() < new Date().getTime()) {
-                    countdownDate = new Date(new Date().getTime() + oneWeek);
-                    localStorage.setItem('countdownEndTime', countdownDate.getTime());
-                }
-            } else {
-                // No stored time, set for one week from now
-                countdownDate = new Date(new Date().getTime() + oneWeek);
-                localStorage.setItem('countdownEndTime', countdownDate.getTime());
-            }
+            // Tempo fixo para o cronômetro (7 dias, 24 horas, 60 minutos, 60 segundos, 1000 milissegundos)
+            const fixedDuration = 7 * 24 * 60 * 60 * 1000;
+            let distance = fixedDuration;
 
             const x = setInterval(function() {
-                const now = new Date().getTime();
-                let distance = countdownDate - now;
+                // Decrementa o tempo restante
+                distance -= 1000;
 
+                // Se o contador chegar a zero, reinicia com a duração fixa
                 if (distance < 0) {
-                    // When the countdown ends, reset it for another week
-                    countdownDate = new Date(now + oneWeek);
-                    localStorage.setItem('countdownEndTime', countdownDate.getTime());
-                    distance = countdownDate - now;
+                    distance = fixedDuration;
                 }
 
+                // Calcula dias, horas, minutos e segundos
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+                // Exibe os resultados nos elementos da página
                 document.getElementById("days").innerHTML = String(days).padStart(2, '0');
                 document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
                 document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
