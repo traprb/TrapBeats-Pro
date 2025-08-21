@@ -30,17 +30,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Variáveis CSS para um tema escuro e roxo */
+        /* Variáveis CSS para um tema moderno de última geração */
         :root {
-            --color-dark-bg: #121212;
-            --color-dark-bg-alt: #1a1a1a;
-            --color-text-light: #e0e0e0;
-            --color-text-dim: #999;
-            --color-purple-primary: #BB86FC;
-            --color-purple-dark: #A56EFF;
-            --color-accent-blue: #03DAC6;
-            --border-radius-base: 12px;
+            --color-dark-bg: #0a0a0b;
+            --color-dark-bg-alt: #111114;
+            --color-dark-bg-card: #1a1a1f;
+            --color-text-light: #ffffff;
+            --color-text-dim: #a0a0a8;
+            --color-purple-primary: #8b5cf6;
+            --color-purple-dark: #7c3aed;
+            --color-purple-light: #a78bfa;
+            --color-accent-cyan: #06b6d4;
+            --color-accent-emerald: #10b981;
+            --color-accent-orange: #f59e0b;
+            --color-gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            --color-gradient-secondary: linear-gradient(135deg, #7c3aed 0%, #10b981 100%);
+            --color-gradient-accent: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --border-radius-base: 16px;
+            --border-radius-large: 24px;
             --transition-speed: 0.3s;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.25);
+            --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --glow-purple: 0 0 30px rgba(139, 92, 246, 0.3);
+            --glow-cyan: 0 0 30px rgba(6, 182, 212, 0.3);
         }
 
         /* Estilos globais */
@@ -56,21 +69,44 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--color-dark-bg);
+            background: var(--color-dark-bg);
             color: var(--color-text-light);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background animado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         section {
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
+            position: relative;
         }
 
         .bg-gradient {
@@ -81,64 +117,148 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             color: var(--color-text-light);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
-        h1 { font-size: 3.5rem; }
-        h2 { font-size: 3rem; }
-        h3 { font-size: 2rem; }
+        h1 { 
+            font-size: 4rem; 
+            background: var(--color-gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 { 
+            font-size: 3.2rem;
+            background: var(--color-gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h3 { font-size: 2.2rem; }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--color-text-dim);
             max-width: 800px;
             margin: 0 auto 2rem auto;
+            line-height: 1.7;
         }
 
         .section-description {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             margin-bottom: 4rem;
+            color: var(--color-text-dim);
         }
 
         .btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 16px 32px;
             font-weight: 600;
-            border-radius: 50px;
+            border-radius: var(--border-radius-large);
             text-decoration: none;
-            transition: transform var(--transition-speed), background-color var(--transition-speed), box-shadow var(--transition-speed);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-medium);
+            margin: 15px; /* Aumentado o espaçamento */
+        }
+
+        /* Grupo de CTAs para controlar espaçamento e wrap */
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px 30px; /* linha x coluna, aumentado o gap */
+            margin-top: 15px; /* Aumentado o margin-top */
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         .btn-primary {
-            background-color: var(--color-purple-primary);
-            color: #fff;
-            border: 2px solid var(--color-purple-primary);
+            background: var(--color-gradient-primary);
+            color: #ffffff;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-medium), var(--glow-purple);
         }
 
         .btn-primary:hover {
-            background-color: var(--color-purple-dark);
-            border-color: var(--color-purple-dark);
+            box-shadow: var(--shadow-strong), var(--glow-purple);
+            filter: brightness(1.1);
         }
 
         .btn-secondary {
-            background-color: transparent;
+            background: var(--color-dark-bg-card);
             color: var(--color-text-light);
-            border: 2px solid var(--color-text-light);
+            border: 2px solid var(--color-purple-primary);
+            backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
-            background-color: var(--color-text-light);
-            color: var(--color-dark-bg);
+            background: var(--color-gradient-primary);
+            border-color: transparent;
+            box-shadow: var(--shadow-strong), var(--glow-purple);
         }
 
         .btn-large {
-            padding: 18px 40px;
-            font-size: 1.2rem;
-            margin: 10px;
+            padding: 20px 48px;
+            font-size: 1.3rem;
+            margin: 12px;
+            border-radius: var(--border-radius-large);
+        }
+
+        .btn-mega {
+            padding: 24px 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--color-gradient-accent);
+            color: #ffffff;
+            border: none;
+            box-shadow: var(--shadow-strong), 0 0 40px rgba(245, 158, 11, 0.4);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: var(--shadow-strong), 0 0 40px rgba(245, 158, 11, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: var(--shadow-strong), 0 0 60px rgba(245, 158, 11, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        .btn-mega:hover {
+            animation: none;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: var(--shadow-strong), 0 0 80px rgba(245, 158, 11, 0.8);
         }
 
         /* HEADER E NAVEGAÇÃO */
@@ -353,11 +473,12 @@
 
         /* Countdown Section */
         .countdown-section {
-            background-color: var(--color-accent-blue);
-            color: #000;
+            background: var(--color-gradient-secondary);
+            padding: 80px 0;
         }
         .countdown-section h3, .countdown-section p {
-            color: #000;
+            color: var(--color-text-light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .countdown-section h3 {
             font-size: 3rem;
@@ -375,31 +496,41 @@
             gap: 30px;
             font-size: 5em;
             font-weight: 700;
-            color: #000;
+            color: var(--color-text-light);
             margin-bottom: 3rem;
         }
-
         #countdown span {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: var(--color-dark-bg-card);
+            color: var(--color-purple-primary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            padding: 20px 25px;
             border-radius: var(--border-radius-base);
-            padding: 20px 30px;
-            min-width: 130px;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+            margin: 0 10px;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--color-purple-dark);
+            transition: all 0.3s ease;
+        }
+
+        #countdown span:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong), var(--glow-purple);
         }
 
         #countdown .label {
-            font-size: 0.2em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-            color: rgba(0, 0, 0, 0.8);
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-text-dim);
             margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        /* FAQ Section */
         .faq-list {
             max-width: 800px;
             margin: 0 auto;
@@ -981,8 +1112,19 @@
             color: var(--color-purple-dark);
         }
     </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TCF8DMXJ');</script>
+<!-- End Google Tag Manager -->
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCF8DMXJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
     <header class="main-header">
         <div class="container">
@@ -997,7 +1139,7 @@
                     <li><a href="#autor">TRAP R B</a></li>
                     <li><a href="#oferta">Oferta</a></li>
                     <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#contato" class="btn btn-primary">Contato</a></li>
+
                 </ul>
             </nav>
             <button class="menu-toggle" aria-label="Abrir Menu">
@@ -1014,7 +1156,7 @@
                 <div class="hero-content">
                     <h1>Crie Beats Profissionais: Seu Celular é o Novo Estúdio!</h1>
                     <p class="subtitle">Aprenda a produzir, registrar e distribuir suas músicas com o mestre TRAP R B. Usando apenas seu celular e o essencial FL Studio Mobile, transforme seu talento em beats profissionais por um preço promocional imperdível!</p>
-                    <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Quero Criar Meus Beats!</a>
+                    <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-mega" onclick="trackHotmartConversion()">🚀 Quero Criar Meus Beats!</a>
                     <a href="#sobre-o-curso" class="btn btn-secondary btn-large">Saiba Mais Sobre o Curso</a>                </div>
             </div>
         </section>
@@ -1027,7 +1169,7 @@
                     <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ul3cQlPDU3U" title="Curso de Beats com Celular - Produção Musical com Trap e R&B" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <p>Este é apenas um gostinho do que você vai aprender a produzir. Qualidade profissional na palma da sua mão!</p>
-                <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Quero Produzir Beats Assim!</a>
+                <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-mega" onclick="trackHotmartConversion()">🎵 Quero Produzir Beats Assim!</a>
         </section>
 
         <section id="sobre-o-curso" class="about-course-section section-padding bg-gradient">
@@ -1041,7 +1183,7 @@
                         <p>Além da produção, o curso aborda etapas cruciais para qualquer artista independente: como registrar suas obras para proteger seus direitos e como distribuir suas músicas nas principais plataformas digitais como Spotify, Deezer e Apple Music, alcançando um público global.</p>
                         <p>Não importa se você é iniciante ou já tem alguma experiência, o curso de TRAP R B é a ferramenta que faltava para você impulsionar sua carreira musical.</p>
                         <p>Este curso completo, que te guiará do básico ao avançado, está disponível por um valor promocional incrível de apenas R$ 69,90! Uma oportunidade única para investir na sua paixão musical e começar a produzir hoje mesmo.</p>
-                        <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Comece a Produzir Agora!</a>
+                        <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-mega" onclick="trackHotmartConversion()">💫 Comece a Produzir Agora!</a>
                     </div>
                     <div class="image-content">
                         <span class="emoji-icon">🎵</span>
@@ -1097,7 +1239,7 @@
                     Apenas R$ 69,90 - Valor Promocional!
                 </div>
                 
-                <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Quero Garantir Minha Vaga!</a>
+                <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-mega" onclick="trackHotmartConversion()">⭐ Quero Garantir Minha Vaga!</a>
             </div>
         </section>
 
@@ -1151,7 +1293,7 @@
                     <span id="minutes">00<span class="label">Minutos</span></span>
                     <span id="seconds">00<span class="label">Segundos</span></span>
                 </div>
-                <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-primary btn-large" onclick="trackHotmartConversion()">Garanta Seu Desconto Agora!</a>
+                <a href="https://hotmart.com/pt-br/marketplace/produtos/curso-de-trap-fl-studio-mobile/J70939606M" class="btn btn-mega" onclick="trackHotmartConversion()">🔥 Garanta Seu Desconto Agora!</a>
             </div>
         </section>
 
@@ -1183,28 +1325,7 @@
             </div>
         </section>
 
-        <section id="contato" class="section-padding bg-gradient">
-            <div class="container">
-                <h2>Fale Conosco</h2>
-                <p class="section-description">Tem alguma dúvida que não foi respondida ou quer saber mais detalhes? Envie uma mensagem e entraremos em contato o mais rápido possível.</p>
-                <form class="contact-form" onsubmit="handleContactSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Seu Nome:</label>
-                        <input type="text" id="name" name="name" placeholder="Seu nome completo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Seu E-mail:</label>
-                        <input type="email" id="email" name="email" placeholder="seu.email@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Sua Mensagem:</label>
-                        <textarea id="message" name="message" rows="6" placeholder="Escreva sua mensagem aqui..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Enviar Mensagem</button>
-                    <p id="contact-status"></p>
-                </form>
-            </div>
-        </section>
+
     </main>
 
     <footer class="main-footer">
@@ -1361,31 +1482,7 @@
         startCountdown(); // Inicia o contador ao carregar a página
 
 
-        // Script para o formulário de contato (exemplo simples, sem backend)
-        function handleContactSubmit(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
-            const statusMessage = document.getElementById('contact-status');
-            statusMessage.textContent = 'Enviando sua mensagem...';
-            statusMessage.classList.remove('error');
-            statusMessage.style.color = 'var(--color-text-dim)'; // Cor neutra enquanto envia
 
-            // Simula o envio de um formulário
-            setTimeout(() => {
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-
-                if (name && email && message) {
-                    statusMessage.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
-                    statusMessage.style.color = '#5CB85C'; // Verde de sucesso
-                    document.querySelector('.contact-form').reset(); // Limpa o formulário
-                } else {
-                    statusMessage.textContent = 'Por favor, preencha todos os campos.';
-                    statusMessage.classList.add('error');
-                    statusMessage.style.color = '#D9534F'; // Vermelho de erro
-                }
-            }, 2000); // Simula um atraso de 2 segundos
-        }
 
         // Smooth scroll para links internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
